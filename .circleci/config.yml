@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
             command: |
-                git clone https://github.com/gohugoio/hugoDocs.git ..
+                git clone https://github.com/gohugoio/hugoDocs.git
                 make vendor
                 go run -tags release main.go release -r ${CIRCLE_TAG}
 workflows:

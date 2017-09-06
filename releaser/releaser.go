@@ -140,7 +140,12 @@ func (r *ReleaseHandler) Run() error {
 		if err != nil {
 			return err
 		}
-		gitCommitsDocs, err = getGitInfos(changeLogFromTag, "../hugoDocs", !r.try)
+
+		docsPath := "../hugoDocs"
+		if isCI() {
+			docsPath = "hugoDocs"
+		}
+		gitCommitsDocs, err = getGitInfos(changeLogFromTag, docsPath, !r.try)
 		if err != nil {
 			return err
 		}
@@ -324,4 +329,8 @@ func hugoFilepath(filename string) string {
 		log.Fatal(err)
 	}
 	return filepath.Join(pwd, filename)
+}
+
+func isCI() bool {
+	return os.Getenv("CI") != ""
 }
