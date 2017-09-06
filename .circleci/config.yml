@@ -8,6 +8,7 @@ jobs:
       - checkout
       - run:
             command: |
+                go version
                 make vendor
                 go run -tags release main.go release ${CIRCLE_TAG}
 workflows:
