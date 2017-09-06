@@ -65,7 +65,6 @@ func (r ReleaseHandler) shouldPrepareVersions() bool {
 }
 
 func (r ReleaseHandler) calculateVersions() (helpers.HugoVersion, helpers.HugoVersion) {
-	cliVersion := strings.TrimPrefix(r.cliVersion, "v")
 	newVersion := helpers.MustParseHugoVersion(cliVersion)
 	finalVersion := newVersion
 	finalVersion.PatchLevel = 0
@@ -83,6 +82,7 @@ func (r ReleaseHandler) calculateVersions() (helpers.HugoVersion, helpers.HugoVe
 
 // New initialises a ReleaseHandler.
 func New(version string, step int, skipPublish, try bool) *ReleaseHandler {
+	version := strings.TrimPrefix(version, "v")
 	rh := &ReleaseHandler{cliVersion: version, step: step, skipPublish: skipPublish, try: try}
 
 	if try {
