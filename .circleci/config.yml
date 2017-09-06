@@ -8,6 +8,8 @@ jobs:
       - checkout
       - run:
             command: |
+                git version
+                git tag -l
                 git fetch --tags
                 git clone https://github.com/gohugoio/hugoDocs.git
                 make vendor
