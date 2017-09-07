@@ -21,6 +21,6 @@ workflows:
             context: org-global
             filters:
               tags:
-                only: /v[0-9]+(\.[0-9]+)*(-.*)*test$/
+                only: /vtest[0-9]+(\.[0-9]+)*(-.*)*/
               branches:
                 ignore: /.*/
