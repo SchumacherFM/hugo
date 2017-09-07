@@ -254,7 +254,7 @@ func gitLogBefore(ref, tag, repoPath string) (string, error) {
 	if tag != "" {
 		prevTag = tag
 	} else {
-		prevTag, err = gitVersionTagBefore(ref)
+		prevTag, err = gitVersionTagBefore(ref, repoPath)
 		if err != nil {
 			return "", err
 		}
@@ -278,8 +278,12 @@ func gitLogBefore(ref, tag, repoPath string) (string, error) {
 	return log, err
 }
 
-func gitVersionTagBefore(ref string) (string, error) {
-	return gitShort("describe", "--tags", "--abbrev=0", "--always", "--match", "v[0-9]*", ref+"^")
+func gitVersionTagBefore(ref, repoPath string) (string, error) {
+	args := []string{"describe", "--tags", "--abbrev=0", "--always", "--match", "v[0-9]*", ref + "^"}
+	if repoPath != "" {
+		args = append([]string{"-C", repoPath}, args...)
+	}
+	return gitShort(args...)
 }
 
 func gitLog() (string, error) {

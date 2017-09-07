@@ -49,7 +49,7 @@ See #456
 
 func TestGitVersionTagBefore(t *testing.T) {
 	skipIfCI(t)
-	v1, err := gitVersionTagBefore("v0.18")
+	v1, err := gitVersionTagBefore("v0.18", "")
 	require.NoError(t, err)
 	require.Equal(t, "v0.17", v1)
 }
